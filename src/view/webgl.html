@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #webgl {
+        display: block;
+        margin: 40px auto 10px;
+      }
+      .control {
+        width: 1000px;
+        margin: auto;
+        display: flex;
+      }
+      button {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.1.0/gl-matrix.js"></script> 
+    <canvas id="webgl" width="1000" height="520"></canvas>
+
+    <div class="control">
+      <button id="resume">恢复</button>
+      <button id="mix">渐变</button>
+      <button id="push">推入</button>
+      <button id="wipe">擦除</button>
+      <button id="reveal">夸张擦除</button>
+      <button id="getBtn">获取shader</button>
+    </div>
+
+
+    <script type="x-shader/x-fragment" id="fs">
+      // 片段着色器
+      precision mediump float;
+      uniform sampler2D u_image[2];
+      uniform float u_ratio;
+      varying vec2 v_texCoord;
+
+      #define PI 3.1415926
+      void main() {
+        vec4 color0 = texture2D(u_image[0], v_texCoord);
+        vec4 color1 = texture2D(u_image[1], v_texCoord);
+        gl_FragColor = mix(color0, color1, u_ratio);
+      }
+    </script>
+
+    <script src="/js/render.js"></script>
+  </body>
+</html>
