@@ -13,10 +13,27 @@
       display: block;
       margin: 40px auto 10px;
     }
+    .control {
+      width: 1000px;
+      margin: 40px auto;
+      display: flex;
+    }
+    button {
+      margin-right: 10px;
+    }
   </style>
 </head>
 <body>
-  <canvas id="blur" width="1240" height="632"></canvas>
+  <canvas id="blur" width="1200" height="600"></canvas>
+  <div class="control">
+    <button id="resume">resume</button>
+    <button id="box">方框模糊</button>
+    <button id="gaussian">高斯模糊</button>
+    <button id="tilt">镜头模糊</button>
+    <button id="lris">镜头模糊 - 光圈</button>
+    <button id="radial">径向模糊 - out</button>
+    <button id="radialV2">径向模糊 - in</button>
+  </div>
 
   <script src="/js/blur.js"></script>
 </body>
