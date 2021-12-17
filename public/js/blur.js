@@ -2,27 +2,16 @@ console.log('--- load blur.js ---');
 
 const canvas = document.getElementById('blur');
 const gl = canvas.getContext('webgl2');
-const url_domain = 'http://10.12.115.42:5004';
+const url_domain = 'http://127.0.0.1:5004';
 
 if (!gl) {
   console.log('浏览器不支持webgl 2.0');
 }
 
-// window.onerror = function(e, a) {
-//   console.log('error', e, a);
-// }
-
-// window.addEventListener('error', function(e) {
-//   console.log('listen', e);
-// })
-
-
-// console.log('4', p);
-
-
 // init();
-// init('tree');
-init('polo');
+init('tree');
+// init('polo');
+// init('city');
 // init('car');
 
 async function loadImg(url) {
@@ -44,8 +33,8 @@ async function init(imgName = 'Jinx') {
   let img = await loadImg(`${url_domain}/img/${imgName}.jpg`);
   // 宽高比
   const rat = parseFloat(img.width / img.height);
-  if (img.height >= 800) {
-    img.height = Math.floor(img.height * (1 / 2));
+  if (img.height >= 700) {
+    img.height = Math.floor(img.height * (3 / 4));
     img.width = Math.floor(img.height * rat);
   }
 
@@ -163,7 +152,19 @@ async function init(imgName = 'Jinx') {
     document.getElementById('box').addEventListener('click', async () => {
       let f = await fetch(`${url_domain}/shader/blur/box.glsl`).then(r => r.text()).catch(e => console.log(e));
       initProgram(vsSource, f);
-      animation(1.6, 0.1);
+      animation(3.0, 0.1);
+    });
+
+    document.getElementById('bokeh').addEventListener('click', async () => {
+      let f = await fetch(`${url_domain}/shader/blur/bokeh.glsl`).then(r => r.text()).catch(e => console.log(e));
+      initProgram(vsSource, f);
+      animation();
+    });
+
+    document.getElementById('gaussian').addEventListener('click', async () => {
+      let f = await fetch(`${url_domain}/shader/blur/gaussian.glsl`).then(r => r.text()).catch(e => console.log(e));
+      initProgram(vsSource, f);
+      animation();
     });
   }
 }
