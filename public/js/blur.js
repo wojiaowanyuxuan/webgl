@@ -31,6 +31,7 @@ async function loadImg(url) {
 
 async function init(imgName = 'Jinx') {
   let img = await loadImg(`${url_domain}/img/${imgName}.jpg`);
+  console.log('img', img);
   // 宽高比
   const rat = parseFloat(img.width / img.height);
   if (img.height >= 700) {
@@ -70,7 +71,6 @@ async function init(imgName = 'Jinx') {
     gl.vertexAttribPointer(1, 2, gl.FLOAT, false, 0, 0);
     /** 绑定顶点结束 end */
 
-
     /** 提供纹理坐标数据 start */
     const tb = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, tb);
@@ -83,7 +83,6 @@ async function init(imgName = 'Jinx') {
     gl.enableVertexAttribArray(2);
     gl.vertexAttribPointer(2, 2, gl.FLOAT, false, 0, 0);
     /** 提供纹理坐标数据结束 end */
-
 
     // 绑定纹理单元
     const texture = createTexture(gl, img, gl.CLAMP_TO_EDGE);
